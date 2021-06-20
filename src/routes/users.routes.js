@@ -1,10 +1,12 @@
 import { Router } from "express";
 const router = Router();
 
-const users = require("../controllers/users");
+import * as userController from "../controllers/users.controller";
 
-router.get("/", users.findAll);
-router.post("/login", users.login);
-router.put("/logout/:id", users.logout);
+router.get('/', userController.getUsers);
+router.post('/', userController.createUser);
+router.get('/:userId', userController.getUserById);
+router.put('/:userId', userController.updateUserById);
+router.delete('/:userId', userController.deleteUserById);
 
 export default router;

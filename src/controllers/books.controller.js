@@ -17,15 +17,16 @@ export const getBooks = async (req, res) => {
 export const getBookById = async (req, res) => {
 	const book = await Book.findById(req.params.bookId);
 	res.status(200).json(book)
-
 }
 
-export const updateBookById = (req, res) => {
-
+export const updateBookById = async (req, res) => {
+	const updatedBook = await Book.findByIdAndUpdate(req.params.bookId, req.body, { new: true });
+	res.status(200).json(updatedBook);
 }
 
-export const deleteBookById = (req, res) => {
-
+export const deleteBookById = async (req, res) => {
+	const deletedBook = await Book.findByIdAndDelete(req.params.bookId);
+	res.status(204).json();
 }
 
 
