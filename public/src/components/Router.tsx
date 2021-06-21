@@ -5,11 +5,11 @@ import MyLibrary from "./MyLibrary";
 import Navigation from "./Navigation";
 import Footer from "./Footer";
 
-function Routera(): JSX.Element {
+function AppRouter(): JSX.Element {
   return (
     <Router history={history}>
       <Navigation />
-      <div id="container">
+      <div id="container" className="container">
         <Switch>
         <Route path="/" component={Login} exact />
         <Route path="/mi-biblioteca" component={MyLibrary} />
@@ -20,4 +20,4 @@ function Routera(): JSX.Element {
   );
 }
 
-export default Routera;
+export default AppRouter;

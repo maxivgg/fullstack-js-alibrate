@@ -1,7 +1,7 @@
 import _asyncToGenerator from "@babel/runtime/helpers/asyncToGenerator";
 import _regeneratorRuntime from "@babel/runtime/regenerator";
 import Book from '../models/Book.js';
-export var createBoook = /*#__PURE__*/function () {
+export var createBook = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime.mark(function _callee(req, res) {
     var _req$body, author, cover, title, description, genre, isbn13, newBook, bookSaved;
 
@@ -33,7 +33,7 @@ export var createBoook = /*#__PURE__*/function () {
     }, _callee);
   }));
 
-  return function createBoook(_x, _x2) {
+  return function createBook(_x, _x2) {
     return _ref.apply(this, arguments);
   };
 }();

@@ -1,4 +1,4 @@
-import User from "../models/User.js";
+import User from '../models/User.js';
 export var createUser = function createUser(req, res) {};
 export var getUsers = function getUsers(req, res) {
   res.status(200).json();

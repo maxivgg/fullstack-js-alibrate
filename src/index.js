@@ -3,7 +3,6 @@ import cors from 'cors';
 import './database.js';
 
 app.use(cors());
-//app.use(express.static('public/build'));
 
 const PORT = process.env.PORT || 2000;
 

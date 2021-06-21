@@ -1,27 +1,63 @@
 import _asyncToGenerator from "@babel/runtime/helpers/asyncToGenerator";
 import _regeneratorRuntime from "@babel/runtime/regenerator";
 import User from '../models/User.js';
-import Book from "../models/Book.js";
+import Book from '../models/Book.js';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 dotenv.config();
 export var signUp = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime.mark(function _callee(req, res) {
-    var _req$body, username, email, password, avatar, newUser, savedUser, token;
+    var _req$body, username, email, password, usernameExists, emailExists, avatar, newUser, savedUser, token;
 
     return _regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
             _req$body = req.body, username = _req$body.username, email = _req$body.email, password = _req$body.password;
-            avatar = "https://graph.facebook.com/10225940148201268/picture?type=square";
+            _context.next = 3;
+            return User.findOne({
+              username: username
+            });
+
+          case 3:
+            usernameExists = _context.sent;
+
+            if (!usernameExists) {
+              _context.next = 6;
+              break;
+            }
+
+            return _context.abrupt("return", rees.status(400).json({
+              message: 'The user already exists'
+            }));
+
+          case 6:
+            _context.next = 8;
+            return User.findOne({
+              email: email
+            });
+
+          case 8:
+            emailExists = _context.sent;
+
+            if (!emailExists) {
+              _context.next = 11;
+              break;
+            }
+
+            return _context.abrupt("return", res.status(400).json({
+              message: 'The email already exists'
+            }));
+
+          case 11:
+            avatar = 'https://graph.facebook.com/10225940148201268/picture?type=square';
             _context.t0 = User;
             _context.t1 = username;
             _context.t2 = email;
-            _context.next = 7;
+            _context.next = 17;
             return User.encryptPassword(password);
 
-          case 7:
+          case 17:
             _context.t3 = _context.sent;
             _context.t4 = avatar;
             _context.t5 = {
@@ -31,10 +67,10 @@ export var signUp = /*#__PURE__*/function () {
               avatar: _context.t4
             };
             newUser = new _context.t0(_context.t5);
-            _context.next = 13;
+            _context.next = 23;
             return newUser.save();
 
-          case 13:
+          case 23:
             savedUser = _context.sent;
             token = jwt.sign({
               id: savedUser._id
@@ -46,7 +82,7 @@ export var signUp = /*#__PURE__*/function () {
               savedUser: savedUser
             });
 
-          case 16:
+          case 26:
           case "end":
             return _context.stop();
         }
@@ -81,7 +117,7 @@ export var signIn = /*#__PURE__*/function () {
             }
 
             return _context2.abrupt("return", res.status(400).json({
-              message: "User not found"
+              message: 'User not found'
             }));
 
           case 6:
@@ -116,12 +152,11 @@ export var signIn = /*#__PURE__*/function () {
             }, process.env.ACCESS_TOKEN_SECRET, {
               expiresIn: process.env.EXPIRES_IN_TOKEN
             });
-            console.log(userFound);
             res.json({
               token: token
             });
 
-          case 17:
+          case 16:
           case "end":
             return _context2.stop();
         }

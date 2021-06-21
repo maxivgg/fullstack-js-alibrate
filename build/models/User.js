@@ -20,7 +20,7 @@ var userSchema = new Schema({
   avatar: {
     type: String
   },
-  booksReaded: [{
+  booksRead: [{
     ref: "Book",
     type: Schema.Types.ObjectId
   }],
@@ -28,7 +28,7 @@ var userSchema = new Schema({
     ref: "Book",
     type: Schema.Types.ObjectId
   }],
-  booksWantToRead: [{
+  booksWishlist: [{
     ref: "Book",
     type: Schema.Types.ObjectId
   }],

@@ -1,9 +1,9 @@
-import User from "../models/User.js";
+import User from '../models/User.js';
 
-export const createUser = (req, res) => {};
+export const createUser = (req, res) => { };
 export const getUsers = (req, res) => {
-	res.status(200).json()
+  res.status(200).json()
 };
-export const getUserById = (req, res) => {};
-export const updateUserById = (req, res) => {};
-export const deleteUserById = (req, res) => {};
+export const getUserById = (req, res) => { };
+export const updateUserById = (req, res) => { };
+export const deleteUserById = (req, res) => { };

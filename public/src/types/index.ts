@@ -1,3 +1,4 @@
+export const LOADING_USER = "LOADING_USER";
 export const LOGIN_USER = "LOGIN_USER";
 
 export interface User {
@@ -10,6 +11,9 @@ export interface User {
 
 export interface UserState {
   user: User | null;
+  jwt: String | null;
+  isLogged: boolean;
+  isLoading: boolean;
 }
 
 interface LoginAction {
@@ -17,4 +21,9 @@ interface LoginAction {
   payload: User;
 }
 
-export type UserActionTypes = LoginAction;
+interface LoadingUser {
+  type: typeof LOADING_USER;
+  iLoading: boolean;
+}
+
+export type UserActionTypes = LoginAction | LoadingUser;

@@ -6,9 +6,11 @@ import {
 
 export const initialState: UserState = {
   user: null,
+  jwt: null,
+  isLogged: false,
 };
 
-export function postReducer(
+export function userReducer(
   state = initialState,
   action: UserActionTypes
 ): UserState {
