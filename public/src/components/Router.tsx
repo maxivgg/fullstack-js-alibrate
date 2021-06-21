@@ -1,7 +1,7 @@
 import { Router, Switch, Route } from "react-router-dom";
 import history from "./history";
 import Login from "./Login";
-import Activity from "./Activity";
+import MyLibrary from "./MyLibrary";
 import Navigation from "./Navigation";
 import Footer from "./Footer";
 
@@ -12,7 +12,7 @@ function Routera(): JSX.Element {
       <div id="container">
         <Switch>
         <Route path="/" component={Login} exact />
-        <Route path="/actividad" component={Activity} />
+        <Route path="/mi-biblioteca" component={MyLibrary} />
         </Switch>
       </div>
       <Footer />

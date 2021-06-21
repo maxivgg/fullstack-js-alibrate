@@ -1,4 +1,4 @@
-import Book from '../models/Book';
+import Book from '../models/Book.js';
 
 export const createBoook = async (req, res) => {
 	const { author, cover, title, description, genre, isbn13 } = req.body;

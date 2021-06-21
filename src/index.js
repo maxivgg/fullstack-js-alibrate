@@ -1,6 +1,6 @@
-import app from './app';
+import app from './app.js';
 import cors from 'cors';
-import './database';
+import './database.js';
 
 app.use(cors());
 //app.use(express.static('public/build'));

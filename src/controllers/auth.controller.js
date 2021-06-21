@@ -1,7 +1,8 @@
-import User from '../models/User';
-import Book from "../models/Book";
+import User from '../models/User.js';
+import Book from "../models/Book.js";
 import jwt from 'jsonwebtoken';
-require('dotenv').config();
+import dotenv from 'dotenv';
+dotenv.config();
 
 export const signUp = async (req, res) => {
 	const { username, email, password } = req.body;

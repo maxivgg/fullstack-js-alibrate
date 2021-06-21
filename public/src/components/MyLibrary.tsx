@@ -1,7 +1,7 @@
 import React from "react";
 
-function Activity() {
+function MyLibrary() {
   return <div></div>;
 }
 
-export default Activity;
+export default MyLibrary;

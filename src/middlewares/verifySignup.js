@@ -1,4 +1,4 @@
-import User from '../models/User';
+import User from '../models/User.js';
 
 export const checkExistsUsernameOrEmail = async (req, res, next) => {
   const user = await User.findOne({username: req.body.username});
