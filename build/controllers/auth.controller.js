@@ -5,6 +5,12 @@ import Book from '../models/Book.js';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 dotenv.config();
+
+function validateEmail(email) {
+  var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(String(email).toLowerCase());
+}
+
 export var signUp = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime.mark(function _callee(req, res) {
     var _req$body, username, email, password, usernameExists, emailExists, avatar, newUser, savedUser, token;
@@ -96,23 +102,42 @@ export var signUp = /*#__PURE__*/function () {
 }();
 export var signIn = /*#__PURE__*/function () {
   var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime.mark(function _callee2(req, res) {
-    var _req$body2, username, email, password, userFound, matchPassword, token;
+    var _req$body2, username, password, userFound, matchPassword, token;
 
     return _regeneratorRuntime.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            _req$body2 = req.body, username = _req$body2.username, email = _req$body2.email, password = _req$body2.password;
-            _context2.next = 3;
+            _req$body2 = req.body, username = _req$body2.username, password = _req$body2.password;
+            userFound = null;
+
+            if (!validateEmail(username)) {
+              _context2.next = 8;
+              break;
+            }
+
+            _context2.next = 5;
             return User.findOne({
-              email: email
+              email: username
             });
 
-          case 3:
+          case 5:
+            userFound = _context2.sent;
+            _context2.next = 11;
+            break;
+
+          case 8:
+            _context2.next = 10;
+            return User.findOne({
+              username: username
+            });
+
+          case 10:
             userFound = _context2.sent;
 
+          case 11:
             if (userFound) {
-              _context2.next = 6;
+              _context2.next = 13;
               break;
             }
 
@@ -120,24 +145,15 @@ export var signIn = /*#__PURE__*/function () {
               message: 'User not found'
             }));
 
-          case 6:
-            _context2.next = 8;
-            return Book.find({
-              _id: {
-                $in: userFound.booksReading
-              }
-            }).limit(10);
-
-          case 8:
-            userFound.booksReading = _context2.sent;
-            _context2.next = 11;
+          case 13:
+            _context2.next = 15;
             return User.comparedPassword(password, userFound.password);
 
-          case 11:
+          case 15:
             matchPassword = _context2.sent;
 
             if (matchPassword) {
-              _context2.next = 14;
+              _context2.next = 18;
               break;
             }
 
@@ -146,17 +162,17 @@ export var signIn = /*#__PURE__*/function () {
               message: 'Invalid password'
             }));
 
-          case 14:
+          case 18:
             token = jwt.sign({
               id: userFound._id
             }, process.env.ACCESS_TOKEN_SECRET, {
               expiresIn: process.env.EXPIRES_IN_TOKEN
             });
-            res.json({
+            res.status(200).json({
               token: token
             });
 
-          case 16:
+          case 20:
           case "end":
             return _context2.stop();
         }

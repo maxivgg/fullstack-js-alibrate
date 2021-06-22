@@ -4,6 +4,11 @@ import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 dotenv.config();
 
+function validateEmail(email) {
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+}
+
 export const signUp = async (req, res) => {
     const { username, email, password } = req.body;
 
@@ -27,11 +32,15 @@ export const signUp = async (req, res) => {
 };
 
 export const signIn = async (req, res) => {
-    const { username, email, password } = req.body;
+    const { username, password } = req.body;
+    let userFound = null;
+    if(validateEmail(username)){
+        userFound = await User.findOne({ email: username });
+    } else {
+        userFound = await User.findOne({ username });
+    }
 
-    const userFound = await User.findOne({ email: email });
     if (!userFound) return res.status(400).json({ message: 'User not found' });
-    userFound.booksReading = await Book.find({ _id: { $in: userFound.booksReading } }).limit(10);
 
     const matchPassword = await User.comparedPassword(password, userFound.password);
 
@@ -39,5 +48,5 @@ export const signIn = async (req, res) => {
 
     const token = jwt.sign({ id: userFound._id }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: process.env.EXPIRES_IN_TOKEN });
 
-    res.json({ token });
+    res.status(200).json({ token });
 }

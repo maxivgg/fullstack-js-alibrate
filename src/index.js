@@ -1,8 +1,5 @@
 import app from './app.js';
-import cors from 'cors';
 import './database.js';
-
-app.use(cors());
 
 const PORT = process.env.PORT || 3000;
 
