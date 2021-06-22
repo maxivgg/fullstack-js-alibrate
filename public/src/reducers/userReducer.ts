@@ -1,13 +1,10 @@
-import {
-  UserState,
-  UserActionTypes,
-  LOGIN_USER,
-} from "../types";
+import { UserState, UserActionTypes, LOGIN_USER, LOADING_USER } from "../types";
 
 export const initialState: UserState = {
   user: null,
   jwt: null,
   isLogged: false,
+  isLoading: false,
 };
 
 export function userReducer(
@@ -15,10 +12,16 @@ export function userReducer(
   action: UserActionTypes
 ): UserState {
   switch (action.type) {
+    case LOADING_USER:
+      return {
+        ...state,
+        isLoading: true,
+      };
     case LOGIN_USER:
       return {
         ...state,
-        user: action.payload,
+        jwt: action.payload.jwt,
+        isLogged: true,
       };
     default:
       return state;

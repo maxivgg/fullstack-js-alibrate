@@ -1,27 +1,39 @@
 import { Dispatch } from "redux";
-import axios from "axios";
-import {
-  UserActionTypes,
-  LOGIN_USER,
-  LOADING_USER
-} from "../types";
+import { UserActionTypes, LOGIN_USER, LOADING_USER } from "../types";
+import history from "../history";
+import { requestPost } from "../utils/request";
+import { URL } from "../utils/configs";
 
-const URL =
-  window.location.hostname === "localhost"
-    ? "http://localhost:2000/"
-    : "https://https://fullstack-js-alibrate.herokuapp.com//";
+interface Signin {
+  username: string;
+  password: string;
+  redirect: string;
+}
 
-export const signin = (request) => async (dispatch: Dispatch<UserActionTypes>) => {
-  dispatch({
-    type: LOADING_USER,
-  });
-  await axios
-    .get(URL + "api/shop")
-    .then((response) =>
-      dispatch({
-        type: LOGIN_USER,
-        payload: response.data,
+export const signin =
+  (request: Signin) => async (dispatch: Dispatch<UserActionTypes>) => {
+    dispatch({
+      type: LOADING_USER,
+    });
+    return requestPost(URL + "auth/signin", request)
+      .then((data) => data.json())
+      .then((response) => {
+        localStorage.setItem("token", response.token);
+        dispatch({
+          type: LOGIN_USER,
+          payload: response,
+        });
       })
-    )
-    .catch((error) => console.log(error));
+      .then(() =>
+        history.push(request.redirect ? request.redirect : "/mi-biblioteca")
+      )
+      .catch((error) => {
+        localStorage.removeItem("token");
+        console.log(error);
+      });
+  };
+
+export const signout = () => {
+  localStorage.removeItem("token");
+  window.location.href = "/";
 };
