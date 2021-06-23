@@ -25,7 +25,7 @@ const MyLibrary = () => {
   }, [page, limit, status, dispatch]);
 
   return (
-    <div className="container">
+    <div className={`container ${styles.mt6} ${styles.mb6}`}>
       <div className="row row-cols-1 row-cols-md-2">
         <div className="col-md-3 mb-3">
           <div className="card"> Usuario</div>

@@ -1,5 +1,4 @@
 import styles from "../styles/login.module.css";
-import history from "../history";
 
 const HomePage = () => {
   
@@ -9,11 +8,11 @@ const HomePage = () => {
   }
 
   return (
-    <div className="container ">
+    <div className="container mt-5">
       <div className="row justify-content-md-center m-1 text-center">
         <div className="col-12 mt-5">
           <img
-            src="https://cdn.alibrate.com/images/AlibrateLogoWhite.svg"
+            src="https://cdn.alibrate.com/images/AlibrateLogo.svg"
             alt="Logo"
             className={styles.logo}
           />
@@ -21,19 +20,10 @@ const HomePage = () => {
         <div className="row mt-5">
           <div className="col">
             <button
-              className="btn btn-light"
-              onClick={() => history.push("/mi-biblioteca")}
-            >
-              Mi biblioteca
-            </button>
-          </div>
-          <div className="col">
-            {" "}
-            <button
-              className="btn btn-light"
+              className={`btn text-white ${styles.bgBlue}`}
               onClick={onSignout}
             >
-              Logout
+              Salir
             </button>
           </div>
         </div>

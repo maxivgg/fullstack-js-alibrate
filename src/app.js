@@ -11,7 +11,7 @@ const app = express();
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(cors({origin: '*'}));
-app.use(express.static('public/build'));
+app.use(express.static('../public/build'));
 
 app.use('/api/books', booksRoutes);
 app.use('/api/auth', authRoutes);

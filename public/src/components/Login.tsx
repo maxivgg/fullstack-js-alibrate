@@ -18,12 +18,11 @@ const Login = () => {
   };
 
   return (
-    <div className={styles.header}>
       <div className={`container`}>
         <div className="row justify-content-md-center m-1 text-center">
           <div className="col-12 mt-5">
             <img
-              src="https://cdn.alibrate.com/images/AlibrateLogoWhite.svg"
+              src="https://cdn.alibrate.com/images/AlibrateLogo.svg"
               alt="Logo"
               className={styles.logo}
             />
@@ -90,7 +89,6 @@ const Login = () => {
           </div>
         </div>
       </div>
-    </div>
   );
 };
 

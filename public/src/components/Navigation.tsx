@@ -1,9 +1,14 @@
 import styles from "../styles/nav.module.css";
-import { FaRegBell } from "react-icons/fa";
+import {
+  FaBell,
+} from "react-icons/fa";
+import NavigationButtons from "./NavigationButtons";
 
 const Navigation = () => {
   return (
-    <nav className={`navbar navbar-expand-lg navbar-dark mb-3 ${styles.navbar}`}>
+    <nav
+      className={`navbar navbar-expand-lg navbar-dark fixed-top ${styles.navbar}`}
+    >
       <div className="container">
         <button
           className={`navbar-toggler ${styles.navbarToggler}`}
@@ -24,30 +29,24 @@ const Navigation = () => {
           <span className={`nav-link ${styles.linkResults}`}>
             Búsqueda avanzada
           </span>
-          <div className="mt-1">
-            <FaRegBell className={styles.flLg} />
+          <div className="mt-2">
+            <FaBell className={styles.flLg} />
           </div>
         </div>
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+        <div
+          className="collapse navbar-expanded-lg"
+          id="navbarSupportedContent"
+        >
           <a href="/" className="navbar-brand">
             <img
               src="https://cdn.alibrate.com/images/AlibrateLogoWhite.svg"
               alt="logo"
+              width="150px"
             />
           </a>
-          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            <li className="nav-item">
-              <a className="nav-link" aria-current="page" href="#">
-                Mi biblioteca
-              </a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#">
-                Salir
-              </a>
-            </li>
-          </ul>
+          <NavigationButtons />
         </div>
+        <NavigationButtons />
       </div>
     </nav>
   );

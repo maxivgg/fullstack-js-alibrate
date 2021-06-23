@@ -1,4 +1,5 @@
 import styles from "../styles/myLibrary.module.css";
+import { FaStar } from "react-icons/fa";
 
 const Book = (props) => {
   const { book } = props;
@@ -16,8 +17,50 @@ const Book = (props) => {
           </div>
           <div className="col-8">
             <div className={styles.text}>
-            <small>{book.title}</small>
-            <h4>{book.title}</h4>
+              <small className={styles.gray}>{book.genre}</small>
+              <h4>{book.title}</h4>
+              <small>{book.author}</small>
+            </div>
+            <FaStar className={styles.flXl} />
+            <FaStar className={styles.flXl} />
+            <FaStar className={styles.flXl} />
+            <FaStar className={styles.flXl} />
+            <FaStar className={styles.flXl} />
+            <p>
+              <small className={styles.gray}>
+                Calificación general: <span className={styles.blue}>8,3</span>
+              </small>
+            </p>
+            <div className="btn-group dropdown-hover">
+              <button
+                type="button"
+                className={`btn ${styles.blue} ${styles.btnGhostViolet}`}
+              >
+                Leído
+              </button>
+              <button
+                type="button"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+                className={`btn dropdown-toggle text-white ${styles.bgBlue}`}
+              >
+                <i className="fl-chevron-bottom"></i>
+              </button>
+              <ul className="dropdown-menu dropdown-menu-right">
+                <li>
+                  <span>Por leer</span>
+                </li>
+                <li>
+                  <span>Leyendo</span>
+                </li>
+                <li>
+                  <span>Leído</span>
+                </li>
+                <li>
+                  <span>Abandonado</span>
+                </li>
+              </ul>
             </div>
           </div>
         </article>
