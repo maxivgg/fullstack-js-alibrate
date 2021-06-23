@@ -25,15 +25,14 @@ export const signin =
         });
       })
       .then(() =>
-        history.push(request.redirect ? request.redirect : "/mi-biblioteca")
+      window.location.href = "/mi-biblioteca"
       )
       .catch((error) => {
-        localStorage.removeItem("token");
         console.log(error);
       });
   };
 
 export const signout = () => {
   localStorage.removeItem("token");
-  window.location.href = "/";
+  return history.push("/");
 };

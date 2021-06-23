@@ -6,6 +6,7 @@ import {
 } from "../types";
 import { requestPost } from "../utils/request";
 import { URL } from "../utils/configs";
+import history from "../history"
 
 interface FetchBooks {
   limit: number;
@@ -27,8 +28,9 @@ export const fetchBooks =
         });
       })
       .catch((error) => {
-        if (error.message === "jwt expired") {
+        if (error.tokenError) {
           localStorage.removeItem("token");
+          history.push("/login");          
         }
         console.log(error);
       });

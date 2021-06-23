@@ -1,10 +1,12 @@
-import { useDispatch } from "react-redux";
 import styles from "../styles/login.module.css";
 import history from "../history";
-import { signout } from "../actions/userActions";
 
 const HomePage = () => {
-  const dispatch = useDispatch();
+  
+  const onSignout = () => {
+    localStorage.removeItem("token");
+    return window.location.href = "/";
+  }
 
   return (
     <div className="container ">
@@ -29,7 +31,7 @@ const HomePage = () => {
             {" "}
             <button
               className="btn btn-light"
-              onClick={() => dispatch(signout())}
+              onClick={onSignout}
             >
               Logout
             </button>

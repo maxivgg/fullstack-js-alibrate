@@ -1,0 +1,32 @@
+.bookCover{
+    width: 120px;
+    height: 190px;
+}
+
+.text{
+    white-space: normal!important;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.text h4{
+    color: #1c4865;    
+}
+
+.navStatus{
+    background-color: #ffffff;
+    width: 100%;
+    padding: 5px;
+}
+
+.btnLink{
+    color: #444;
+    text-decoration: none;
+    padding: 10px;
+}
+
+.btnLink .active{
+    border-bottom: solid 2px #1c4865;
+}

@@ -1,17 +1,16 @@
-import { useEffect } from "react";
 import { Route } from "react-router-dom";
 import { useJwt } from "react-jwt";
+import Login from "./Login";
+const token = localStorage.getItem("token") || "";
 
 const PrivateRoute = (props) => {
-  const token: any = localStorage.getItem("token");
   const { isExpired } = useJwt(token);
+  const { isLayoutComponent } = props;
 
-  useEffect(() => {
-    if (isExpired) {
-      let redirect = `/login?redirect=${window.location.pathname}`;
-      window.location.href = redirect;
-    }
-  }, [isExpired]);
+  if (isExpired) {
+    if (isLayoutComponent) return <></>;
+    return <Login />;
+  }
 
   return <Route {...props} />;
 };
