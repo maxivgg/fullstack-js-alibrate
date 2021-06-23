@@ -11,11 +11,12 @@ const app = express();
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(cors({origin: '*'}));
-app.use(express.static('../public/build'));
 
 app.use('/api/books', booksRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/user', usersRoutes);
 app.use('/api/my-library', myLibraryRoutes);
+
+app.use(express.static('../public/build'));
 
 export default app;
