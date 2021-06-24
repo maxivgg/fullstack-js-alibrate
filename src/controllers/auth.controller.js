@@ -1,5 +1,4 @@
 import User from '../models/User.js';
-import Book from '../models/Book.js';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 dotenv.config();

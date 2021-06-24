@@ -1,0 +1,13 @@
+.logo{
+    max-width: 500px;
+}
+.formLogin{
+    background-color: #ffffff;
+    padding: 10px;
+    border-radius: 0.25rem;
+    box-shadow: 0 0.125rem 0.25rem rgb(0 0 0 / 8%);
+}
+
+.bgBlue {
+    background-color: #1c4865;
+}
