@@ -9,7 +9,12 @@ import MyLibraryNavStatus from "./MyLibraryNavStatus";
 import MyLibraryUser from "./MyLibraryUser";
 
 const limit = 10;
-const pageInitial = 1;
+const pageStatusInitial = {
+  booksRead: 1,
+  booksReading: 1,
+  booksWishlist: 1,
+  booksAbandoned: 1,
+};
 
 const MyLibrary: React.FunctionComponent = () => {
   const isLoading = useSelector(
@@ -18,40 +23,36 @@ const MyLibrary: React.FunctionComponent = () => {
   const user = useSelector((state: RootState) => state.myLibrary.user);
   const dispatch = useDispatch();
 
-  const [page, setPage] = useState(pageInitial);
+  const [pageStatus, setPageStatus] = useState(pageStatusInitial);
   const [status, setStatus] = useState<
     "booksRead" | "booksReading" | "booksWishlist" | "booksAbandoned"
   >("booksRead");
   const [isBottom, setIsBottom] = useState(false);
-  const [initialSearches, setInitialSearches] = useState(0);
+  const [countSearches, setCountSearches] = useState(1);
 
   const books = useSelector(
     (state: RootState) => state.myLibrary.booksMyLibrary[status]
   );
 
-  const booksMyLibrary = useSelector(
-    (state: RootState) => state.myLibrary.booksMyLibrary
-  );
-
   useEffect(() => {
-    setPage(pageInitial);
-    if (!booksMyLibrary[status]?.length && initialSearches > 1)
-      dispatch(fetchBooks({ page, limit, status }));
+    if (!books?.length && !isLoading && countSearches > 1) {
+      onFetchBooks();
+    }
   }, [status]);
 
   useEffect(() => {
-    if (isBottom && books.length < user[status].length) {
-      setPage((page) => page + 1);
+    if (isBottom && books.length < user[status].length && !isLoading) {
+      setPageStatus({
+        ...pageStatus,
+        [status]: pageStatus[status] + 1,
+      });
       setIsBottom(false);
     }
   }, [isBottom]);
 
   useEffect(() => {
-    if (!isLoading) {
-      dispatch(fetchBooks({ page, limit, status }));
-      setInitialSearches(initialSearches + 1);
-    }
-  }, [page]);
+    if (!isLoading) onFetchBooks();
+  }, [pageStatus]);
 
   const handleScroll = () => {
     const scrollTop =
@@ -69,7 +70,13 @@ const MyLibrary: React.FunctionComponent = () => {
       window.removeEventListener("scroll", handleScroll);
       dispatch(resetState());
     };
-  }, [dispatch]);
+  }, []);
+
+  const onFetchBooks = () => {
+    const page = pageStatus[status];
+    dispatch(fetchBooks({ page, limit, status }));
+    setCountSearches(countSearches + 1);
+  };
 
   return (
     <div className={`container-fluid ${styles.mt6} ${styles.mb6}`}>
