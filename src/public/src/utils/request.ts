@@ -1,6 +1,7 @@
 const getHeaders = () => ({
   Accept: "application/json",
   "Content-Type": "application/json",
+  "Access-Control-Allow-Origin": "*",
   "x-access-token": localStorage.getItem("token"),
 } as HeadersInit);
 

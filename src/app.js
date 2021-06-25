@@ -9,7 +9,7 @@ import myLibraryRoutes from './routes/myLibrary.routes.js';
 const app = express();
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({origin: '*'}));
 
 app.use('/api/books', booksRoutes);
 app.use('/api/auth', authRoutes);
