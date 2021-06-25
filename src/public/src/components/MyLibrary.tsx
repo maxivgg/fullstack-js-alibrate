@@ -23,14 +23,21 @@ const MyLibrary: React.FunctionComponent = () => {
     "booksRead" | "booksReading" | "booksWishlist" | "booksAbandoned"
   >("booksRead");
   const [isBottom, setIsBottom] = useState(false);
+  const [initialSearches, setInitialSearches] = useState(0);
 
   const books = useSelector(
     (state: RootState) => state.myLibrary.booksMyLibrary[status]
   );
 
+  const booksMyLibrary = useSelector(
+    (state: RootState) => state.myLibrary.booksMyLibrary
+  );
+
   useEffect(() => {
     setPage(pageInitial);
-  }, [status, dispatch]);
+    if (!booksMyLibrary[status]?.length && initialSearches > 1)
+      dispatch(fetchBooks({ page, limit, status }));
+  }, [status]);
 
   useEffect(() => {
     if (isBottom && books.length < user[status].length) {
@@ -42,8 +49,9 @@ const MyLibrary: React.FunctionComponent = () => {
   useEffect(() => {
     if (!isLoading) {
       dispatch(fetchBooks({ page, limit, status }));
+      setInitialSearches(initialSearches + 1);
     }
-  }, [page, dispatch]);
+  }, [page]);
 
   const handleScroll = () => {
     const scrollTop =
