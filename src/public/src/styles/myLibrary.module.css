@@ -16,6 +16,14 @@
     font-size: 14px;
 }
 
+.fontSize12{
+    font-size: 12px;
+}
+
+.fontSize11{
+    font-size: 11px;
+}
+
 .text h4{
     color: #1c4865;
     margin: 3px 0;
@@ -47,12 +55,6 @@
     font-size: 25px;
     color: #1c4865;
   }
-
-.navStatus{
-    background-color: #ffffff;
-    width: 100%;
-    padding: 5px;
-}
 
 .btnLink{
     color: #444;

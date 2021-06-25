@@ -3,10 +3,11 @@ import {
   myLibraryActionTypes,
   FETCH_MY_LIBRARY,
   LOADING_MY_LIBRARY,
+  RESET_MY_LIBRARY,
 } from "../types";
 import { requestPost } from "../utils/request";
 import { URL } from "../utils/configs";
-import history from "../history"
+import history from "../history";
 
 interface FetchBooks {
   limit: number;
@@ -25,13 +26,21 @@ export const fetchBooks =
         dispatch({
           type: FETCH_MY_LIBRARY,
           payload: response,
+          status: request.status,
         });
       })
       .catch((error) => {
         if (error.tokenError) {
           localStorage.removeItem("token");
-          history.push("/login");          
+          history.push("/login");
         }
         console.log(error);
       });
+  };
+
+export const resetState =
+  () => async (dispatch: Dispatch<myLibraryActionTypes>) => {
+    dispatch({
+      type: RESET_MY_LIBRARY,
+    });
   };

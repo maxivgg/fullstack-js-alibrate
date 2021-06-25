@@ -18,15 +18,13 @@ export const signIn =
     return requestPost(URL + "auth/signIn", request)
       .then((data) => data.json())
       .then((response) => {
-        if(response.token) localStorage.setItem("token", response.token);
+        if (response.token) localStorage.setItem("token", response.token);
         dispatch({
           type: LOGIN_USER,
           payload: response,
         });
       })
-      .then(() =>
-      window.location.href = "/mi-biblioteca"
-      )
+      .then(() => (window.location.href = "/mi-biblioteca"))
       .catch((error) => {
         console.log(error);
       });

@@ -3,7 +3,6 @@ import { UserState, UserActionTypes, LOGIN_USER, LOADING_USER } from "../types";
 export const initialState: UserState = {
   user: null,
   jwt: null,
-  isLogged: false,
   isLoading: false,
 };
 
@@ -20,8 +19,8 @@ export function userReducer(
     case LOGIN_USER:
       return {
         ...state,
-        jwt: action.payload.jwt,
-        isLogged: true,
+        jwt: action.payload.token,
+        user: action.payload.user,
       };
     default:
       return state;

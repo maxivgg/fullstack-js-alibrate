@@ -23,7 +23,7 @@ const Book: React.FunctionComponent<Props> = (props) => {
           <div className="col-8">
             <div className={styles.text}>
               <small className={styles.gray}>{book.genre}</small>
-              <h4>{book.title}</h4>
+              <h4>{book.title.substring(0, 48)}</h4>
               <small>{book.author}</small>
             </div>
             <FaStar className={styles.flXl} />

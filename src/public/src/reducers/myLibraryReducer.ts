@@ -3,11 +3,18 @@ import {
   myLibraryActionTypes,
   FETCH_MY_LIBRARY,
   LOADING_MY_LIBRARY,
+  RESET_MY_LIBRARY,
 } from "../types";
 
 export const initialState: myLibraryState = {
   isLoading: false,
-  booksMyLibrary: [],
+  user: null,
+  booksMyLibrary: {
+    booksRead: [],
+    booksReading: [],
+    booksWishlist: [],
+    booksAbandoned: [],
+  },
 };
 
 export function myLibraryReducer(
@@ -23,9 +30,19 @@ export function myLibraryReducer(
     case FETCH_MY_LIBRARY:
       return {
         ...state,
-        booksMyLibrary: action.payload.booksMyLibrary,
+        booksMyLibrary: {
+          ...state.booksMyLibrary,
+          [action.status]: [
+            ...state.booksMyLibrary[action.status],
+            ...action.payload.booksMyLibrary,
+          ],
+        },
+        user: action.payload.user,
         isLoading: false,
       };
+
+    case RESET_MY_LIBRARY:
+      return initialState;
     default:
       return state;
   }

@@ -6,11 +6,16 @@ dotenv.config();
 
 export const getUserBooks = async (req, res) => {
 
-  const { limit, status } = req.body;
-
+  const { limit, status, page } = req.body;
   const user = await User.findById(req.userId);
-  const booksMyLibrary = await Book.find({ _id: { $in: user[status] } }).limit(limit);
 
-  res.status(200).json({ booksMyLibrary });
+  const totalBooks = user[status].length;
+  const skip = limit*(page-1); 
+
+  const booksMyLibrary = await Book.find({ _id: { $in: user[status] } })
+  .limit(limit)
+  .skip(skip);
+
+  res.status(200).json({ booksMyLibrary, user });
 
 };
