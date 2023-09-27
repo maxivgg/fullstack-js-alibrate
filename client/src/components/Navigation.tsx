@@ -21,12 +21,8 @@ const Navigation: React.FunctionComponent = () => {
       className={`navbar navbar-expand-lg navbar-dark fixed-top ${styles.navbar}`}
     >
       <div className="container-fluid">
-        <a href="/" className="collapse navbar-collapse">
-          <img
-            src="https://cdn.alibrate.com/images/AlibrateLogoWhite.svg"
-            alt="logo"
-            height="30px"
-          />
+        <a href="/" className="collapse navbar-collapse text-white text-decoration-none">
+          My library
         </a>
         <button
           className={`navbar-toggler ${styles.navbarToggler}`}
@@ -44,9 +40,6 @@ const Navigation: React.FunctionComponent = () => {
             className={`form-control form-control-sm me-2 ${styles.search}`}
             placeholder="Buscar"
           />
-          <span className={`nav-link ${styles.linkResults}`}>
-            Búsqueda avanzada
-          </span>
           <div className="mt-2">
             <FaBell className={styles.flLg} />
           </div>
